@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Teste Prático de Programação - SMARKIO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Frameworks e Ferramentas utilizados(as)
 
-## Available Scripts
+* ReactJS com a biblioteca Styled Components
+* NodeJS
+* Express
+* Watson IBM API
+* Axios como AJAX (do ReactJS)
+* MySQL
+* Git
+* Visual Studio Code
 
-In the project directory, you can run:
+## Como executar
 
-### `npm start`
+### Pré-requisitos
+Antes de executar, é necessário ter o MySQL instalado no seu ambiente local. Se já tiver, ou depois que estiver instalado, crie um banco de dados com o nome **watsonibm** e, dentro dele, crie uma tabela com o nome **comentarios**. Ambos podem ser criados utilizando os seguintes comandos SQL:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```sql
+CREATE DATABASE watsonibm;
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```sql
+CREATE TABLE comentarios (id INT AUTO_INCREMENT PRIMARY KEY, conteudo TEXT(300) NOT NULL;
+```
 
-### `npm test`
+Para instalar os arquivos, caso tenha o Git instalado no ambiente local, utilize o seguinte comando:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```git
+git clone https://github.com/rafaelgreca/teste-ibm-smarkio.git
+```
 
-### `npm run build`
+Caso não tenha, clique no botão verde escrito "Code" e instale como zip. Extraia o mesmo depois que baixar.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Execução
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Depois de já ter realizado os passos anteriores, abra dois terminais dentro do endereço da pasta. Um será utilizada para rodar o servidor e o outro o cliente. Para executar o servidor, devemos entrar na pasta **server** e usar o comando "node index.js". Para executar o cliente, basta utilizar o comando "npm start". Ambos os comandos estão demonstrados na figura abaixo.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Comandos de execução do cliente e do servidor](images/comandos.png)
 
-### `npm run eject`
+Acesse o link [http://localhost:3000](http://localhost:3000) no seu navegador para utilizar a aplicação.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Configurações
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para trocar as configurações do banco de dados, acesse o arquivo **index.js**, que está dentro da pasta **server**, e modifique as seguintes variáveis:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```javascript
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'watsonibm'
+});
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Recomendação: modifique somente as variáveis **user** e **password**.
 
-## Learn More
+Para trocar as configurações da API Watson IBM, primeiramente crie uma conta gratuita acessando esse [link](https://www.ibm.com/cloud/watson-text-to-speech). Depois, também dentro do arquivo **index.js**, modifique as seguintes variáveis com as suas credenciais:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+const textToSpeech = new TextToSpeechV1({
+    authenticator: new IamAuthenticator({ apikey: 'oK7pWnrU4Up7jJVS_qPMd7Yt6baYVtbTTeu57U1WmUac' }),
+    serviceUrl: 'https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/e1e8b38e-27b3-42b8-b42a-70eb0c12daf5'
+});
+```
