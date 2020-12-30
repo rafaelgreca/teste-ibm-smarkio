@@ -71,7 +71,7 @@ word-break: break-all;
 const BotaoOuvir = styled.button`
 cursor: pointer;
 padding: 0.7rem;
-background-color: #4fc3f7;
+background-color: #b97065;
 height: 3rem;
 width: 5rem;
 border: 1px solid #000;
@@ -79,7 +79,6 @@ font-weight: bolder;
 border-radius: 6px;
 
 &:hover{
-    background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     transition-timing-function: ease-out;
     transition-delay: 0.2s;

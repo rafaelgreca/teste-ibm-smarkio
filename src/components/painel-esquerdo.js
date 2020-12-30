@@ -54,14 +54,13 @@ resize: none;
 const BotaoAddComentario = styled.button`
 cursor: pointer;
 padding: 0.9rem;
-background-color: #4fc3f7;
+background-color: #b97065;
 width: 95%;
 border: 1px solid #000;
 font-weight: bolder;
 border-radius: 6px;
 
 &:hover{
-    background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     transition-timing-function: ease-out;
     transition-delay: 0.2s;
