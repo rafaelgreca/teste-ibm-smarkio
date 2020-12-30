@@ -2,36 +2,51 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+/*
+Estilização dos elementos da página  utilizando CSS
+*/
 const DivPainelEsquerdo = styled.div`
 background-color: transparent;
 display: flex;
 flex-direction: column;
 justify-content: center;
 text-align: center;
-align-items: center;
-padding: 10rem;
+padding: 0 9rem;
+margin-top: -8.8rem;
 
 @media screen and (max-width: 768px){
-    padding: 5rem;
+    margin-top: 0;
+    padding: 2rem 5rem;
 }
+`;
+
+const DivCampos = styled.div`
+background-color: transparent;
+justify-content: space-around;
+text-align: center;
+align-items: left;
+padding: 0;
 `;
 
 const Comentario = styled.h3`
 text-transform: capitalize;
 color: #000;
+text-align: left;
+padding-left: 0.4rem;
+margin-bottom: 0.3rem;
 `;
 
 const TextoComentario = styled.textarea`
-resize: none;
 cursor: text;
 border: 1px solid #000;
 cursor: text;
 margin: 0.5rem;
-width: 100%;
-heigth: 10rem;
+width: 21rem;
+height: 7.5rem;
+resize: none;
 
 @media screen and (max-width: 768px){
-    margin: 0.5rem 1.5rem;
+    margin: 0.5rem 0;
     width: 100%;
 }
 `;
@@ -39,7 +54,11 @@ heigth: 10rem;
 const BotaoAddComentario = styled.button`
 cursor: pointer;
 padding: 0.9rem;
-background-color: transparent;
+background-color: #4fc3f7;
+width: 95%;
+border: 1px solid #000;
+font-weight: bolder;
+border-radius: 6px;
 
 &:hover{
     background-color: rgb(0, 0, 0);
@@ -51,7 +70,8 @@ background-color: transparent;
 
 @media screen and (max-width: 768px){
     margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    width: 100%;
 }
 `;
 
@@ -65,6 +85,7 @@ class PainelEsquerdo extends React.Component{
       this.cadastrarComentario = this.cadastrarComentario.bind(this);
     }
 
+    //Atualiza o valor da variável 'comentário'
     changeComentario(event){
         const target = event.target;
         const value = target.value;
@@ -72,6 +93,7 @@ class PainelEsquerdo extends React.Component{
         this.setState({comentario : value});
     }
 
+    //Cadastra o comentário no banco de dados
     cadastrarComentario(event){
 
         const data = {
@@ -98,16 +120,19 @@ class PainelEsquerdo extends React.Component{
       return (
 
           <DivPainelEsquerdo>
-
+              
               <Comentario>
                   Comentário
               </Comentario>
 
+              <DivCampos>
+
               <TextoComentario type="text" value={this.state.comentario} onChange={this.changeComentario} />
 
               <BotaoAddComentario onClick={this.cadastrarComentario}>
-                  Cadastrar
+                Cadastrar
               </BotaoAddComentario>
+              </DivCampos>
 
           </DivPainelEsquerdo>
       );

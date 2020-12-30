@@ -2,35 +2,81 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
+/*
+Estilização dos elementos da página utilizando CSS
+*/
 const DivPainelDireito = styled.div`
 background-color: transparent;
 display: flex;
 flex-direction: column;
 justify-content: center;
 text-align: center;
-align-items: center;
-padding: 10rem;
+padding: 9rem 5rem 4rem 5rem;
+width: 100%;
+border-left: 3px solid #000;
 
 @media screen and (max-width: 768px){
-    padding: 5rem;
+    padding: 3rem 0;
+    border-left: none;
+    border-top: 3px solid #000;
 }
 `;
 
 const ComentarioTitulo = styled.h3`
 text-transform: capitalize;
 color: #000;
+font-weight: bolder;
+text-align: left;
+
+@media screen and (max-width: 768px){
+    padding-left: 4rem;
+}
+`;
+
+const ComentarioTexto = styled.p`
+color: #000;
+font-weight: normal;
+margin-right: 1.8rem;
+text-align-last: left;
 `;
 
 const DivComentariosCadastrados = styled.div`
+text-align: left;
+overflow-y: auto;
+height: 25rem;
+
+@media screen and (max-width: 768px){
+    height: 20rem;
+    padding: 0;
+    margin: 0 2rem 0 4rem;
+}
 `;
 
 const DivComentario = styled.div`
+margin: 1.5rem 0;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+
+@media screen and (max-width: 768px){
+    margin: 0 0;
+}
+`;
+
+const DivComentarioTexto = styled.div`
+width: 25rem;
+word-break: break-all;
 `;
 
 const BotaoOuvir = styled.button`
 cursor: pointer;
-padding: 0.9rem;
-background-color: transparent;
+padding: 0.7rem;
+background-color: #4fc3f7;
+height: 3rem;
+width: 5rem;
+border: 1px solid #000;
+font-weight: bolder;
+border-radius: 6px;
 
 &:hover{
     background-color: rgb(0, 0, 0);
@@ -41,8 +87,11 @@ background-color: transparent;
 }
 
 @media screen and (max-width: 768px){
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 0.7rem;
+    margin-bottom: 1rem;
+    height: 2rem;
+    width: 6rem;
+    padding: 0.4rem;
 }
 `;
 
@@ -55,6 +104,7 @@ class PainelDireito extends React.Component{
         this.onClickOuvir = this.onClickOuvir.bind(this);
     }
 
+    //Pega todos os comentários cadastrados no banco de dados
     getComentarios(){
 
         try{
@@ -73,6 +123,8 @@ class PainelDireito extends React.Component{
         }
     }
 
+    //Seleciona o comentário que será transformado em uma fala
+    //E chama a rota responsável pela ação
     onClickOuvir(event){
 
         const target = event.target;
@@ -97,10 +149,16 @@ class PainelDireito extends React.Component{
         }
 
     }
+
+    //Toda vez que a página for inicilizada, a função de pegar os comentários
+    //Do banco será chamada
     componentDidMount(){
         this.getComentarios();
     }
 
+    //Toda vez que a página for atualizada, a função de pegar os comentários
+    //Do banco será chamada. Para que a inserção de comentários na lista seja
+    //Feita em tempo real
     componentDidUpdate(){
         this.getComentarios();
     }
@@ -116,15 +174,14 @@ class PainelDireito extends React.Component{
 
               <DivComentariosCadastrados>
 
-                  <DivComentario>
-
-                    <ul>
                     {this.state.listaComentarios.map((comentario) => 
-                        <li key={comentario.id + comentario.conteudo}>{comentario.conteudo} <button value={comentario.conteudo} onClick={this.onClickOuvir}>Ouvir</button></li>      
+                        <DivComentario>
+                            <DivComentarioTexto>
+                                <ComentarioTexto>{comentario.conteudo}</ComentarioTexto>
+                            </DivComentarioTexto>
+                            <BotaoOuvir value={comentario.conteudo} onClick={this.onClickOuvir}>Ouvir</BotaoOuvir>
+                        </DivComentario>      
                     )}
-                    </ul>
-
-                  </DivComentario>
 
               </DivComentariosCadastrados>
 

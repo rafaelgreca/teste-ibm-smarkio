@@ -1,3 +1,7 @@
+/*
+Configurações necessárias para fazer a API Watson IBM,
+o banco de dados e o servidor back-end funcionar
+*/
 const express = require("express");
 const bodyparser = require("body-parser");
 const cors = require("cors");
@@ -29,6 +33,11 @@ app.use(bodyparser.urlencoded({extended: true}));
 app.use(cors());
 app.use(express.json());
 
+/*
+Declaração das rotas
+*/
+
+//Adiciona comentário no banco de dados
 app.post("/comentarios/add", (req, res) => {
     
     const comentario = req.body.conteudo;
@@ -45,6 +54,8 @@ app.post("/comentarios/add", (req, res) => {
 
 });
 
+//Retorna todos os comentários diferentes (evita mostrar comentário repetido)
+//do banco de dados
 app.get("/comentarios/get", (req, res) => {
 
     const sql = 'SELECT DISTINCT conteudo FROM comentarios';
@@ -60,6 +71,8 @@ app.get("/comentarios/get", (req, res) => {
     })
 });
 
+//Utiliza a API Watson IBM para transformar um determinado comentário
+//em uma fala
 app.post("/comentarios/get/audio", (req, res) => {
 
     const texto = req.body.texto;
@@ -83,6 +96,8 @@ app.post("/comentarios/get/audio", (req, res) => {
                     console.log(err);
                 }
             });
+
+            fs.unlinkSync('audio.wav');
         })
         .catch(err => {
             console.log(err);
