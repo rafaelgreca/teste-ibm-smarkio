@@ -38,7 +38,7 @@ Caso não tenha o Git instalado, clique no botão verde **Code**, baixe o arquiv
 
 ## Execução
 
-Depois de já ter realizado os passos anteriores, abra dois terminais dentro do endereço da pasta. Um será utilizado para rodar o servidor e o outro o cliente. Para executar o servidor, devemos entrar na pasta **server**, utilizar o comando "npm install" e depois "node index.js". Para executar o cliente, utilize o comando "npm install" e depois "npm start". Todos os comandos estão demonstrados nas figuras abaixo.
+Depois de já ter realizado os passos anteriores, abra dois terminais dentro do endereço da pasta. Um será utilizado para rodar o servidor e o outro o cliente. Para executar o cliente, utilize o comando "npm install" e depois "npm start". Para executar o servidor, devemos entrar na pasta **server**, utilizar o comando "npm install" e depois "node index.js". Todos os comandos estão demonstrados nas figuras abaixo.
 
 ![Comandos npm install](images/comandos_install.png)
 
