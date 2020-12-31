@@ -14,7 +14,7 @@
 ## Como executar
 
 ### Pré-requisitos
-Antes de executar, é necessário ter o MySQL instalado no seu ambiente local. Se já tiver, ou depois que estiver instalado, crie um banco de dados com o nome **watsonibm** e, dentro dele, crie uma tabela com o nome **comentarios**. Ambos podem ser criados utilizando os seguintes comandos SQL:
+Antes de executar, é necessário ter o MySQL instalado no seu ambiente local. Se já tiver, ou depois que tiver instalado, crie um banco de dados com o nome **watsonibm** e, dentro dele, crie uma tabela com o nome **comentarios**. Ambos podem ser criados utilizando os seguintes comandos SQL:
 
 ```sql
 CREATE DATABASE watsonibm;
@@ -24,13 +24,11 @@ CREATE DATABASE watsonibm;
 CREATE TABLE comentarios (id INT AUTO_INCREMENT PRIMARY KEY, conteudo TEXT(300) NOT NULL;
 ```
 
-Para instalar os arquivos, caso tenha o Git instalado no ambiente local, utilize o seguinte comando:
+Para baixar os arquivos será necessário ter o Git instalado no ambiente local. Se já tiver, ou depois que tiver instalado, utilize o seguinte comando:
 
 ```git
 git clone https://github.com/rafaelgreca/teste-ibm-smarkio.git
 ```
-
-Caso não tenha, clique no botão verde escrito "Code" e instale como zip. Extraia o mesmo depois que baixar.
 
 ## Execução
 
