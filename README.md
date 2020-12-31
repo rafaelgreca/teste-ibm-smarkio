@@ -21,26 +21,36 @@ CREATE DATABASE watsonibm;
 ```
 
 ```sql
-CREATE TABLE comentarios (id INT AUTO_INCREMENT PRIMARY KEY, conteudo TEXT(300) NOT NULL;
+USE watsonibm;
 ```
 
-Para baixar os arquivos será necessário ter o Git instalado no ambiente local. Se já tiver, ou depois que tiver instalado, utilize o seguinte comando:
+```sql
+CREATE TABLE comentarios (id INT AUTO_INCREMENT PRIMARY KEY, conteudo TEXT(300) NOT NULL);
+```
+
+Para baixar os arquivos será necessário ter o Git instalado no ambiente local. Se já tiver, ou depois que tiver instalado, utilize o seguinte comando no terminal e na pasta onde deseja instalar:
 
 ```git
 git clone https://github.com/rafaelgreca/teste-ibm-smarkio.git
 ```
 
+Caso não tenha o Git instalado, clique no botão verde **Code**, baixe o arquivo ZIP, escolha onde deseja armazenar e depois descompacte/extraia o arquivo.
+
 ## Execução
 
-Depois de já ter realizado os passos anteriores, abra dois terminais dentro do endereço da pasta. Um será utilizada para rodar o servidor e o outro o cliente. Para executar o servidor, devemos entrar na pasta **server** e usar o comando "node index.js". Para executar o cliente, basta utilizar o comando "npm start". Ambos os comandos estão demonstrados na figura abaixo.
+Depois de já ter realizado os passos anteriores, abra dois terminais dentro do endereço da pasta. Um será utilizado para rodar o servidor e o outro o cliente. Para executar o servidor, devemos entrar na pasta **server**, utilizar o comando "npm install" e depois "node index.js". Para executar o cliente, utilize o comando "npm install" e depois "npm start". Todos os comandos estão demonstrados nas figuras abaixo.
 
-![Comandos de execução do cliente e do servidor](images/comandos.png)
+![Comandos npm install](images/comandos_install.png)
+
+Depois use os comandos:
+
+![Comandos de execução do cliente e do servidor](images/comandos2.png)
 
 Acesse o link [http://localhost:3000](http://localhost:3000) no seu navegador para utilizar a aplicação.
 
 ## Configurações
 
-Para trocar as configurações do banco de dados, acesse o arquivo **index.js**, que está dentro da pasta **server**, e modifique as seguintes variáveis:
+Caso deseje trocar as configurações do banco de dados, acesse o arquivo **index.js**, que está dentro da pasta **server**, e modifique as seguintes variáveis:
 
 ```javascript
 const connection = mysql.createConnection({
@@ -51,7 +61,7 @@ const connection = mysql.createConnection({
 });
 ```
 
-Recomendação: modifique somente as variáveis **user** e **password**.
+Recomendação: modifique somente as variáveis **user** e **password**. Confira antes se as informações digitadas estão corretas. **root** e **password** são os valores padrão do MySQL.
 
 Para trocar as configurações da API Watson IBM, primeiramente crie uma conta gratuita acessando esse [link](https://www.ibm.com/cloud/watson-text-to-speech). Depois, também dentro do arquivo **index.js**, modifique as seguintes variáveis com as suas credenciais:
 
