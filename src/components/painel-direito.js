@@ -40,10 +40,10 @@ margin-right: 1.8rem;
 text-align-last: left;
 `;
 
-const DivComentariosCadastrados = styled.div`
+const DivComentariosCadastrados = styled.ul`
 text-align: left;
 overflow-y: auto;
-height: 25rem;
+height: 23rem;
 
 @media screen and (max-width: 768px){
     height: 20rem;
@@ -52,7 +52,7 @@ height: 25rem;
 }
 `;
 
-const DivComentario = styled.div`
+const DivComentario = styled.li`
 margin: 1.5rem 0;
 display: flex;
 flex-direction: row;
@@ -96,6 +96,8 @@ border-radius: 6px;
 
 class PainelDireito extends React.Component{
   
+    _isMounted = false;
+
     constructor(props){
         super(props);
         this.state = {'listaComentarios': []};
@@ -106,19 +108,21 @@ class PainelDireito extends React.Component{
     //Pega todos os comentários cadastrados no banco de dados
     getComentarios(){
 
-        try{
-            axios.get('http://localhost:3001/comentarios/get')
-            .then(res => {
-                this.setState({
-                    listaComentarios: res.data
+        if(this._isMounted){
+            try{
+                axios.get('http://localhost:3001/comentarios/get')
+                .then(res => {
+                    this.setState({
+                        listaComentarios: res.data
+                    });
+                })
+                .catch(() => {
+                alert("Erro ao tentar pegar os comentários!");
                 });
-            })
-            .catch(() => {
-               alert("Erro ao tentar pegar os comentários!");
-            });
-        }
-        catch(e){
-            console.log(e);
+            }
+            catch(e){
+                console.log(e);
+            }
         }
     }
 
@@ -136,10 +140,10 @@ class PainelDireito extends React.Component{
         try{
             axios.post('http://localhost:3001/comentarios/get/audio', data)
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
             })
             .catch(err => {
-                console.log(err);
+                alert(err);
             });
     
         }
@@ -152,6 +156,7 @@ class PainelDireito extends React.Component{
     //Toda vez que a página for inicilizada, a função de pegar os comentários
     //Do banco será chamada
     componentDidMount(){
+        this._isMounted = true;
         this.getComentarios();
     }
 
@@ -173,13 +178,13 @@ class PainelDireito extends React.Component{
 
               <DivComentariosCadastrados>
 
-                    {this.state.listaComentarios.map((comentario) => 
-                        <DivComentario>
+                    {this.state.listaComentarios.map((comentario, index) => 
+                        <DivComentario key={index}>
                             <DivComentarioTexto>
                                 <ComentarioTexto>{comentario.conteudo}</ComentarioTexto>
                             </DivComentarioTexto>
                             <BotaoOuvir value={comentario.conteudo} onClick={this.onClickOuvir}>Ouvir</BotaoOuvir>
-                        </DivComentario>      
+                        </DivComentario> 
                     )}
 
               </DivComentariosCadastrados>

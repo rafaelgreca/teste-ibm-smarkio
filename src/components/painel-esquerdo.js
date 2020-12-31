@@ -99,18 +99,20 @@ class PainelEsquerdo extends React.Component{
             'conteudo' : this.state.comentario
         }
         
-        try{
-            axios.post('http://localhost:3001/comentarios/add', data)
-            .then(() => {
-                alert("Comentário inserido com sucesso!");
-                this.setState({comentario : ''});
-            })
-            .catch(() => {
-                alert("Erro ao inserir o comentário!");
-            });
-        }
-        catch(e){
-            console.log(e);
+        if(this.state.comentario !== ''){
+            try{
+                axios.post('http://localhost:3001/comentarios/add', data)
+                .then(() => {
+                    alert("Comentário inserido com sucesso!");
+                    this.setState({comentario : ''});
+                })
+                .catch(() => {
+                    alert("Erro ao inserir o comentário!");
+                });
+            }
+            catch(e){
+                console.log(e);
+            }
         }
     }
 

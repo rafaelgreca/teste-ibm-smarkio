@@ -89,15 +89,15 @@ app.post("/comentarios/get/audio", (req, res) => {
             return textToSpeech.repairWavHeaderStream(response.result);
         })
         .then(audio => {
-            fs.writeFileSync('audio.wav', audio);
+            fs.writeFileSync('../public/audio.wav', audio);
 
-            player.play('audio.wav', function(err) {
+            player.play('../public/audio.wav', function(err) {
                 if(err){
                     console.log(err);
                 }
             });
-
-            fs.unlinkSync('audio.wav');
+        
+            //fs.unlinkSync('audio.wav');
         })
         .catch(err => {
             console.log(err);
