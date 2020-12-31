@@ -116,12 +116,14 @@ class PainelDireito extends React.Component{
                         listaComentarios: res.data
                     });
                 })
-                .catch(() => {
-                alert("Erro ao tentar pegar os comentários!");
+                .catch(err => {
+                    if(axios.isCancel(err)){
+                        //console.log("requisição axios cancelada");
+                    }
                 });
             }
             catch(e){
-                console.log(e);
+                alert(e);
             }
         }
     }
@@ -137,20 +139,23 @@ class PainelDireito extends React.Component{
             'texto': value
         }
 
-        try{
-            axios.post('http://localhost:3001/comentarios/get/audio', data)
-            .then(res => {
-                //console.log(res.data);
-            })
-            .catch(err => {
-                alert(err);
-            });
-    
+        if(this._isMounted){
+            try{
+                axios.post('http://localhost:3001/comentarios/get/audio', data)
+                .then(res => {
+                    //console.log(res.data);
+                })
+                .catch(err => {
+                    if(axios.isCancel(err)){
+                        //console.log("requisição axios cancelada");
+                    }
+                });
+        
+            }
+            catch(e){
+                alert(e);
+            }
         }
-        catch(e){
-            console.log(e);
-        }
-
     }
 
     //Toda vez que a página for inicilizada, a função de pegar os comentários
@@ -165,6 +170,10 @@ class PainelDireito extends React.Component{
     //Feita em tempo real
     componentDidUpdate(){
         this.getComentarios();
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     render(){
@@ -183,7 +192,7 @@ class PainelDireito extends React.Component{
                             <DivComentarioTexto>
                                 <ComentarioTexto>{comentario.conteudo}</ComentarioTexto>
                             </DivComentarioTexto>
-                            <BotaoOuvir value={comentario.conteudo} onClick={this.onClickOuvir}>Ouvir</BotaoOuvir>
+                            <BotaoOuvir type="button" value={comentario.conteudo} onClick={this.onClickOuvir}>Ouvir</BotaoOuvir>
                         </DivComentario> 
                     )}
 

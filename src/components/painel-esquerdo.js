@@ -107,11 +107,11 @@ class PainelEsquerdo extends React.Component{
                     this.setState({comentario : ''});
                 })
                 .catch(() => {
-                    alert("Erro ao inserir o comentário!");
+                    //console.log("Erro ao inserir o comentário!");
                 });
             }
             catch(e){
-                console.log(e);
+                alert(e);
             }
         }
     }
@@ -130,7 +130,7 @@ class PainelEsquerdo extends React.Component{
 
               <TextoComentario type="text" value={this.state.comentario} onChange={this.changeComentario} />
 
-              <BotaoAddComentario onClick={this.cadastrarComentario}>
+              <BotaoAddComentario type="button" onClick={this.cadastrarComentario}>
                 Cadastrar
               </BotaoAddComentario>
               </DivCampos>
